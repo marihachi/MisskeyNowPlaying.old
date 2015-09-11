@@ -257,15 +257,26 @@ namespace MisskeyNowPlaying
 				NowPlayMedia.PlayedCount,
 				commentBox.Text);
 
-			var res = await SettingStorage.Instance.Account.Request(
-				MethodType.POST,
-				"status/update",
-				new Dictionary<string, string>() {
+			try
+			{
+				var res = await SettingStorage.Instance.Account.Request(
+					MethodType.POST,
+					"status/update",
+					new Dictionary<string, string>() {
 					{ "text", text }
 				});
 
-			if (!string.IsNullOrEmpty(res))
-				commentBox.Text = "";
+				if (!string.IsNullOrEmpty(res))
+					commentBox.Text = "";
+			}
+			catch (MSharp.Core.RequestException ex)
+			{
+				MessageBox.Show(string.Format("リクエストに失敗しました。(詳細: {0})", ex.Message), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			catch (MSharp.Core.ApiException ex)
+			{
+				MessageBox.Show(string.Format("Misskeyからエラーが返されました。(詳細: {0})", ex.Message), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		private void settingToolStripMenuItem_Click(object sender, EventArgs e)
