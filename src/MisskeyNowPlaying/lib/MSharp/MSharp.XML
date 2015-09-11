@@ -1,0 +1,499 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MSharp</name>
+    </assembly>
+    <members>
+        <member name="T:MSharp.Core.HttpRequest">
+            <summary>
+            HTTPリクエストを表します。
+            </summary>
+        </member>
+        <member name="M:MSharp.Core.HttpRequest.#ctor(MSharp.MethodType,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{System.Drawing.Image})">
+            <summary>
+            新しいインスタンスを生成します
+            </summary>
+            <param name="method">リクエストメソッド</param>
+            <param name="url">リクエストURL</param>
+            <param name="headers">リクエストのヘッダー</param>
+            <param name="parameters">リクエストのパラメータ</param>
+            <param name="images">マルチパートのストリーム</param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:MSharp.Core.HttpRequest.#ctor">
+            <summary>
+            新しいインスタンスを生成します
+            </summary>
+        </member>
+        <member name="M:MSharp.Core.HttpRequest.Request">
+            <summary>
+            リクエストを送信します。
+            </summary>
+            <exception cref="T:MSharp.Core.RequestException"></exception>
+            <exception cref="T:MSharp.Core.MSharpException"></exception>
+        </member>
+        <member name="P:MSharp.Core.HttpRequest.Method">
+            <summary>
+            リクエストメソッド
+            </summary>
+        </member>
+        <member name="P:MSharp.Core.HttpRequest.Url">
+            <summary>
+            リクエスト先のURL
+            </summary>
+        </member>
+        <member name="P:MSharp.Core.HttpRequest.Headers">
+            <summary>
+            リクエストヘッダー
+            </summary>
+        </member>
+        <member name="P:MSharp.Core.HttpRequest.Parameters">
+            <summary>
+            リクエストパラメータ
+            </summary>
+        </member>
+        <member name="P:MSharp.Core.HttpRequest.Images">
+            <summary>
+            マルチパートのストリーム
+            </summary>
+        </member>
+        <member name="T:MSharp.Core.MSharpException">
+            <summary>
+            MSharpの全般的なエラーを表します。
+            </summary>
+        </member>
+        <member name="T:MSharp.Core.ApiException">
+            <summary>
+            MisskeyAPIから返されたエラーを表します。
+            </summary>
+        </member>
+        <member name="M:MSharp.Core.ApiException.#ctor(System.String)">
+            <summary>
+            新しいインスタンスを生成します
+            </summary>
+        </member>
+        <member name="T:MSharp.Core.Utility.Json">
+            <summary>
+            JSON形式のデータを扱うクラスです。
+            </summary>
+        </member>
+        <member name="M:MSharp.Core.Utility.Json.Parse(System.String)">
+            <summary>
+            JSON の形式にシリアライズされた文字列を動的なJSONオブジェクトに変換します。
+            <para>また、このメソッドについては例外が発生しないことが保障されています。</para>
+            </summary>
+            <param name="json">JSON形式の文字列</param>
+        </member>
+        <member name="T:MSharp.Entity.Status">
+            <summary>
+            ステータスオブジェクトを表します。
+            </summary>
+        </member>
+        <member name="M:MSharp.Entity.Status.#ctor(System.String)">
+            <summary>
+            新しいインスタンスを生成します。
+            </summary>
+            <param name="jsonString">ステータスオブジェクトのJSON文字列</param>
+        </member>
+        <member name="P:MSharp.Entity.Status.AppId">
+            <summary>
+            アプリケーションID
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.CreatedAt">
+            <summary>
+            投稿日時
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.Cursor">
+            <summary>
+            カーソル
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.DisplayCreatedAt">
+            <summary>
+            投稿日時(文字列)
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.FavoritesCount">
+            <summary>
+            お気に入り数
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.Id">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.ImageUrls">
+            <summary>
+            添付画像のURL
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.InReplyToStatusId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.IsImageAttached">
+            <summary>
+            画像が添付されているかどうか
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.IsReply">
+            <summary>
+            リプライであるかどうか
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.Replies">
+            <summary>
+            返信元のステータスID
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.RepliesCount">
+            <summary>
+            返信された数
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.RepostsCount">
+            <summary>
+            リポストされた数
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.IsRepostToStatus">
+            <summary>
+            リポストであるかどうか
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.Source">
+            <summary>
+            リポスト内容
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.Tags">
+            <summary>
+            タグ
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.Text">
+            <summary>
+            投稿内容
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.User">
+            <summary>
+            投稿したユーザー
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.Status.UserId">
+            <summary>
+            投稿したユーザーのID
+            </summary>
+        </member>
+        <member name="T:MSharp.Entity.RepostInfo">
+            <summary>
+            リポストの内容を表します。
+            </summary>
+        </member>
+        <member name="M:MSharp.Entity.RepostInfo.#ctor(System.String,System.String)">
+            <summary>
+            新しいインスタンスを生成します。
+            </summary>
+            <param name="statusSource">status.sourceのJSON文字列</param>
+            <param name="repostUser">status.repostedByUserのJSON文字列</param>
+        </member>
+        <member name="P:MSharp.Entity.RepostInfo.Id">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.RepostInfo.RepostFromStatusId">
+            <summary>
+            リポスト元のid
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.RepostInfo.Text">
+            <summary>
+            コメントの内容
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.RepostInfo.UserId">
+            <summary>
+            リポストしたユーザーのID
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.RepostInfo.User">
+            <summary>
+            リポストしたユーザーオブジェクト
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.RepostInfo.AppId">
+            <summary>
+            アプリケーションID
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.RepostInfo.CreatedAt">
+            <summary>
+            投稿日時
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.RepostInfo.DisplayCreatedAt">
+            <summary>
+            投稿日時(文字列)
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.RepostInfo.IsImageAttached">
+            <summary>
+            画像が添付されているかどうか
+            </summary>
+        </member>
+        <member name="T:MSharp.Entity.User">
+            <summary>
+            ユーザーオブジェクトを表します。
+            </summary>
+        </member>
+        <member name="M:MSharp.Entity.User.#ctor(System.String)">
+            <summary>
+            新しいインスタンスを生成します。
+            </summary>
+            <param name="jsonString">UserオブジェクトのJSON文字列</param>
+        </member>
+        <member name="P:MSharp.Entity.User.BannerImageUrl">
+            <summary>
+            ヘッダー画像のURL
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.Bio">
+            <summary>
+            プロフィール
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.Color">
+            <summary>
+            カラー
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.Comment">
+            <summary>
+            コメント
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.CreatedAt">
+            <summary>
+            アカウントの生成日時
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.FollowersCount">
+            <summary>
+            フォロワー数
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.FollowingsCount">
+            <summary>
+            フォロー数
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.IconImageUrl">
+            <summary>
+            アイコン画像のURL
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.Id">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.IsDisplayNotFollowUserMention">
+            <summary>
+            フォローしていないユーザーからのメンションを表示するかどうか
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.IsPlus">
+            <summary>
+            PlusAccountであるかどうか
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.IsSuspended">
+            <summary>
+            凍結されているかどうか
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.IsVerified">
+            <summary>
+            認証済みアカウントであるかどうか
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.Lang">
+            <summary>
+            言語
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.Links">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.Location">
+            <summary>
+            場所
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.Name">
+            <summary>
+            名前
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.ScreenName">
+            <summary>
+            ユーザー名
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.StatusFavoritesCount">
+            <summary>
+            お気に入り数
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.StatusesCount">
+            <summary>
+            投稿数
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.Tags">
+            <summary>
+            タグ
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.Url">
+            <summary>
+            URL
+            </summary>
+        </member>
+        <member name="P:MSharp.Entity.User.WallpaperImageUrl">
+            <summary>
+            背景画像のURL
+            </summary>
+        </member>
+        <member name="T:MSharp.MethodType">
+            <summary>
+            リクエストメソッドの種類を表します
+            </summary>
+        </member>
+        <member name="F:MSharp.MethodType.GET">
+            <summary>
+            GETメソッド
+            </summary>
+        </member>
+        <member name="F:MSharp.MethodType.POST">
+            <summary>
+            POSTメソッド
+            </summary>
+        </member>
+        <member name="T:MSharp.Misskey">
+            <summary>
+            Misskeyオブジェクトを表します。
+            </summary>
+        </member>
+        <member name="M:MSharp.Misskey.#ctor(System.String,System.Uri)">
+            <summary>
+            新しいMisskeyオブジェクトを生成します
+            </summary>
+            <param name="appKey">アプリ連携のキー</param>
+            <param name="baseUrl">APIリクエストの基となる Url</param>
+        </member>
+        <member name="M:MSharp.Misskey.#ctor(System.String,System.String,MSharp.Entity.User,System.Uri)">
+            <summary>
+            新しいMisskeyオブジェクトを生成します
+            </summary>
+            <param name="appKey">アプリ連携のキー</param>
+            <param name="userKey">アプリの利用に必要なユーザー毎のキー</param>
+            <param name="user">ユーザーオブジェクト</param>
+            <param name="baseUrl">APIリクエストの基となる Url</param>
+        </member>
+        <member name="M:MSharp.Misskey.StartAuthorize">
+            <summary>
+            現在のMisskeyオブジェクトを使用してアプリ連携ページを表示します。
+            </summary>
+            <exception cref="T:MSharp.Core.MSharpException"></exception>
+            <exception cref="T:MSharp.Core.RequestException"></exception>
+        </member>
+        <member name="M:MSharp.Misskey.AuthorizePIN(System.String)">
+            <summary>
+            ユーザーから入力されたPINコードを検証し、認証されたMisskeyオブジェクトの取得を試行します。
+            </summary>
+            <param name="pinCode">PINコード</param>
+            <exception cref="T:MSharp.Core.MSharpException"></exception>
+            <exception cref="T:MSharp.Core.RequestException"></exception>
+        </member>
+        <member name="M:MSharp.Misskey.Request(MSharp.MethodType,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{System.Drawing.Image})">
+            <summary>
+            現在のMisskeyオブジェクトを使用してリクエストを送信します。
+            </summary>
+            <param name="method">リクエストメソッド</param>
+            <param name="endPoint">リクエストのエンドポイント</param>
+            <param name="parameters">リクエストのパラメータ</param>
+            <param name="images">イメージデータ</param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:MSharp.Core.MSharpException"></exception>
+            <exception cref="T:MSharp.Core.RequestException"></exception>
+        </member>
+        <member name="P:MSharp.Misskey.AppKey">
+            <summary>
+            アプリ連携のキーを取得します。
+            </summary>
+        </member>
+        <member name="P:MSharp.Misskey.UserKey">
+            <summary>
+            アプリの利用に必要なユーザー毎のキーを取得します。
+            </summary>
+        </member>
+        <member name="P:MSharp.Misskey.User">
+            <summary>
+            ユーザーオブジェクトを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:MSharp.Misskey.BaseUrl">
+            <summary>
+            APIリクエストの基となるURLを取得または設定します。
+            </summary>
+        </member>
+        <member name="P:MSharp.Misskey.IsAuthorized">
+            <summary>
+            認証されたMisskeyオブジェクトであるかどうかを示す値を取得します。
+            </summary>
+        </member>
+        <member name="T:MSharp.Core.MisskeyRequest">
+            <summary>
+            Misskey の仕様に沿ったHTTPリクエストを表します。
+            </summary>
+        </member>
+        <member name="M:MSharp.Core.MisskeyRequest.#ctor(MSharp.Misskey,MSharp.MethodType,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.List{System.Drawing.Image})">
+            <summary>
+            新しいインスタンスを生成します
+            </summary>
+            <param name="misskey">対象となる Misskeyオブジェクト</param>
+            <param name="method">リクエストメソッド</param>
+            <param name="endPoint">リクエストのエンドポイント</param>
+            <param name="parameters">リクエストのパラメータ</param>
+            <param name="images">イメージデータ</param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:MSharp.Core.MisskeyRequest.Request">
+            <summary>
+            現在のMisskeyオブジェクトを使用してリクエストを送信します。
+            </summary>
+            <exception cref="T:MSharp.Core.RequestException"></exception>
+        </member>
+        <member name="P:MSharp.Core.MisskeyRequest.BaseUrl">
+            <summary>
+            このリクエストの基となる Url を取得します。
+            </summary>
+        </member>
+        <member name="T:MSharp.Core.RequestException">
+            <summary>
+            リクエストで発生するエラーを表します。
+            </summary>
+        </member>
+    </members>
+</doc>
