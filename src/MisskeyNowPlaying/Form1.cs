@@ -233,6 +233,12 @@ namespace MisskeyNowPlaying
 
 		private async void postToMisskeyButton_Click(object sender, EventArgs e)
 		{
+			if (NowPlayMedia == null)
+			{
+				MessageBox.Show("再生中のメディアがありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
+
 			var text = SettingStorage.Instance.PostTextFormat;
 
 			text = text.Replace("<number>", "{0:D2}");
