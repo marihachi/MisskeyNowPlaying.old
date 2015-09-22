@@ -263,8 +263,9 @@ namespace MisskeyNowPlaying
 					MethodType.POST,
 					"status/update",
 					new Dictionary<string, string>() {
-					{ "text", text }
-				});
+						{ "text", text }
+					},
+					NowPlayMedia.Artworks.Count != 0 ? new List<Image>() { pictureBox1.Image } : null);
 
 				if (!string.IsNullOrEmpty(res))
 					commentBox.Text = "";
