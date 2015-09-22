@@ -35,8 +35,15 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.colorBorderPanel2 = new MisskeyNowPlaying.ColorBorderPanel();
 			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.colorBorderPanel3 = new MisskeyNowPlaying.ColorBorderPanel();
+			this.label5 = new System.Windows.Forms.Label();
+			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.label4 = new System.Windows.Forms.Label();
 			this.colorBorderPanel1.SuspendLayout();
 			this.colorBorderPanel2.SuspendLayout();
+			this.colorBorderPanel3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// okButton
@@ -45,7 +52,7 @@
 			this.okButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
 			this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.okButton.ForeColor = System.Drawing.Color.White;
-			this.okButton.Location = new System.Drawing.Point(405, 218);
+			this.okButton.Location = new System.Drawing.Point(405, 327);
 			this.okButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.okButton.Name = "okButton";
 			this.okButton.Size = new System.Drawing.Size(67, 29);
@@ -117,12 +124,63 @@
 			this.textBox1.TabIndex = 1;
 			this.textBox1.WordWrap = false;
 			// 
+			// colorBorderPanel3
+			// 
+			this.colorBorderPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+			this.colorBorderPanel3.Controls.Add(this.label5);
+			this.colorBorderPanel3.Controls.Add(this.numericUpDown1);
+			this.colorBorderPanel3.Controls.Add(this.checkBox1);
+			this.colorBorderPanel3.Location = new System.Drawing.Point(13, 226);
+			this.colorBorderPanel3.Name = "colorBorderPanel3";
+			this.colorBorderPanel3.Size = new System.Drawing.Size(459, 94);
+			this.colorBorderPanel3.TabIndex = 4;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(23, 39);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(133, 18);
+			this.label5.TabIndex = 1;
+			this.label5.Text = "投稿されるまでの時間:";
+			// 
+			// numericUpDown1
+			// 
+			this.numericUpDown1.BackColor = System.Drawing.Color.YellowGreen;
+			this.numericUpDown1.ForeColor = System.Drawing.Color.White;
+			this.numericUpDown1.Location = new System.Drawing.Point(157, 36);
+			this.numericUpDown1.Name = "numericUpDown1";
+			this.numericUpDown1.Size = new System.Drawing.Size(47, 25);
+			this.numericUpDown1.TabIndex = 2;
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(14, 13);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(219, 22);
+			this.checkBox1.TabIndex = 0;
+			this.checkBox1.Text = "曲が変わった時に自動的に投稿する";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(17, 218);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(56, 18);
+			this.label4.TabIndex = 5;
+			this.label4.Text = "自動投稿";
+			// 
 			// SettingForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.YellowGreen;
-			this.ClientSize = new System.Drawing.Size(484, 260);
+			this.ClientSize = new System.Drawing.Size(484, 369);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.colorBorderPanel3);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.colorBorderPanel1);
 			this.Controls.Add(this.okButton);
@@ -139,6 +197,9 @@
 			this.colorBorderPanel1.PerformLayout();
 			this.colorBorderPanel2.ResumeLayout(false);
 			this.colorBorderPanel2.PerformLayout();
+			this.colorBorderPanel3.ResumeLayout(false);
+			this.colorBorderPanel3.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -153,5 +214,10 @@
 		private MisskeyNowPlaying.ColorBorderPanel colorBorderPanel2;
 		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.Label label3;
+		private ColorBorderPanel colorBorderPanel3;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.NumericUpDown numericUpDown1;
+		private System.Windows.Forms.CheckBox checkBox1;
 	}
 }

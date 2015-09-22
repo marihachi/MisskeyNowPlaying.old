@@ -25,7 +25,9 @@ namespace MisskeyNowPlaying
 			Account = new MSharp.Misskey(Config.Appkey, new Uri("http://api.misskey.xyz/"));
 			PostTextFormat = "<number>. <title> / <artist> - <album> (played: <playcount>)\r\n<usercomment>";
 			TargetPlayer = PlayerType.None;
-		}
+			IsAutoPost = false;
+			AutoPostInterval = 10;
+        }
 
 		/// <summary>
 		/// Misskey連携情報
@@ -41,6 +43,16 @@ namespace MisskeyNowPlaying
 		/// 対象のプレイヤー
 		/// </summary>
 		public PlayerType TargetPlayer { set; get; }
+
+		/// <summary>
+		/// 自動投稿をするかどうか
+		/// </summary>
+		public bool IsAutoPost { set; get; }
+
+		/// <summary>
+		/// 自動投稿までのインターバル
+		/// </summary>
+		public int AutoPostInterval { set; get; }
 
 		/// <summary>
 		/// 設定を保存します
@@ -64,6 +76,12 @@ namespace MisskeyNowPlaying
 
 				JsonPrimitive.TryCreate((int)TargetPlayer, out element);
 				json.Add("TargetPlayer", element);
+
+				JsonPrimitive.TryCreate(IsAutoPost, out element);
+				json.Add("IsAutoPost", element);
+
+				JsonPrimitive.TryCreate(AutoPostInterval, out element);
+				json.Add("AutoPostInterval", element);
 
 				// Save
 				using (var sw = new System.IO.StreamWriter("setting.json"))
@@ -100,6 +118,12 @@ namespace MisskeyNowPlaying
 
 					if (j.TargetPlayer.Value != null)
 						TargetPlayer = (PlayerType)j.TargetPlayer.Value;
+
+					if (j.IsAutoPost != null)
+						IsAutoPost = j.IsAutoPost.Value;
+
+					if (j.AutoPostInterval != null)
+						AutoPostInterval = j.AutoPostInterval.Value;
 				}
 			});
 		}

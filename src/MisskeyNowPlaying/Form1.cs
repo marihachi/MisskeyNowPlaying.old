@@ -23,12 +23,53 @@ namespace MisskeyNowPlaying
 
 			wmp = null;
 			itunes = null;
-		}
+			DelayTimer = new Timer();
+			DelayTimer.Interval = 1000;
+			DelayTimer.Tick += DelayTimer_Tick;
+			NowDelay = 0;
+        }
 
 		private MediaItem NowPlayMedia { set; get; }
 
 		private WindowsMediaPlayer wmp { set; get; }
 		private iTunes itunes { set; get; }
+
+		private Timer DelayTimer { set; get; }
+		private int NowDelay { set; get; }
+
+		// ディレイタイマーの更新処理
+		private async void DelayTimer_Tick(object sender, EventArgs e)
+		{
+			NowDelay++;
+
+			this.Text = string.Format("MisskeyNowPlaying - v{0} ({1}秒後に投稿します...)",
+				System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3),
+				SettingStorage.Instance.AutoPostInterval - NowDelay);
+
+			if (NowDelay >= SettingStorage.Instance.AutoPostInterval)
+			{
+				await PostToMisskey();
+            }
+		}
+
+		private void StartDelayTimer()
+		{
+			NowDelay = 0;
+			DelayTimer.Start();
+
+			this.Text = string.Format("MisskeyNowPlaying - v{0} ({1}秒後に投稿します...)",
+				System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3),
+				SettingStorage.Instance.AutoPostInterval);
+		}
+
+		private void StopDelayTimer()
+		{
+			DelayTimer.Stop();
+			NowDelay = 0;
+
+			this.Text = string.Format("MisskeyNowPlaying - v{0}",
+				System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3));
+		}
 
 		/// <summary>
 		/// 曲情報をメインフォームに反映する
@@ -42,6 +83,69 @@ namespace MisskeyNowPlaying
 
 			label1.Text = string.Format("{0:D2}. {1} - {2}", media.TrackNumber, media.Name, media.Album);
 			label2.Text = string.Format("{0}", !string.IsNullOrEmpty(media.Artist) ? media.Artist : media.AlbumArtist);
+
+			if (SettingStorage.Instance.IsAutoPost)
+			{
+				NowDelay = 0;
+				DelayTimer.Start();
+				this.Text = string.Format("MisskeyNowPlaying - v{0} ({1}秒後に投稿します...)",
+					System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3),
+					SettingStorage.Instance.AutoPostInterval);
+			}
+        }
+
+		/// <summary>
+		/// Misskeyに曲情報を投稿します
+		/// </summary>
+		private async Task PostToMisskey()
+		{
+			StopDelayTimer();
+
+			if (NowPlayMedia == null)
+			{
+				MessageBox.Show("再生中のメディアがありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				return;
+			}
+
+			var text = SettingStorage.Instance.PostTextFormat;
+
+			text = text.Replace("<number>", "{0:D2}");
+			text = text.Replace("<title>", "{1}");
+			text = text.Replace("<artist>", "{2}");
+			text = text.Replace("<album>", "{3}");
+			text = text.Replace("<playcount>", "{4}");
+			text = text.Replace("<usercomment>", "{5}");
+
+			text = string.Format(
+				text,
+				NowPlayMedia.TrackNumber,
+				NowPlayMedia.Name,
+				!string.IsNullOrEmpty(NowPlayMedia.Artist) ? NowPlayMedia.Artist : NowPlayMedia.AlbumArtist,
+				NowPlayMedia.Album,
+				NowPlayMedia.PlayedCount,
+				commentBox.Text);
+
+			try
+			{
+				var res = await SettingStorage.Instance.Account.Request(
+					MethodType.POST,
+					"status/update",
+					new Dictionary<string, string>() {
+						{ "text", text }
+					},
+					NowPlayMedia.Artworks.Count != 0 ? new List<Image>() { pictureBox1.Image } : null);
+
+				if (!string.IsNullOrEmpty(res))
+					commentBox.Text = "";
+			}
+			catch (MSharp.Core.RequestException ex)
+			{
+				MessageBox.Show(string.Format("リクエストに失敗しました。(詳細: {0})", ex.Message), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			catch (MSharp.Core.ApiException ex)
+			{
+				MessageBox.Show(string.Format("Misskeyからエラーが返されました。(詳細: {0})", ex.Message), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 		/// <summary>
@@ -233,56 +337,23 @@ namespace MisskeyNowPlaying
 
 		private async void postToMisskeyButton_Click(object sender, EventArgs e)
 		{
-			if (NowPlayMedia == null)
-			{
-				MessageBox.Show("再生中のメディアがありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				return;
-			}
-
-			var text = SettingStorage.Instance.PostTextFormat;
-
-			text = text.Replace("<number>", "{0:D2}");
-			text = text.Replace("<title>", "{1}");
-			text = text.Replace("<artist>", "{2}");
-			text = text.Replace("<album>", "{3}");
-			text = text.Replace("<playcount>", "{4}");
-			text = text.Replace("<usercomment>", "{5}");
-
-			text = string.Format(
-				text,
-				NowPlayMedia.TrackNumber,
-				NowPlayMedia.Name,
-				!string.IsNullOrEmpty(NowPlayMedia.Artist) ? NowPlayMedia.Artist : NowPlayMedia.AlbumArtist,
-				NowPlayMedia.Album,
-				NowPlayMedia.PlayedCount,
-				commentBox.Text);
-
-			try
-			{
-				var res = await SettingStorage.Instance.Account.Request(
-					MethodType.POST,
-					"status/update",
-					new Dictionary<string, string>() {
-						{ "text", text }
-					},
-					NowPlayMedia.Artworks.Count != 0 ? new List<Image>() { pictureBox1.Image } : null);
-
-				if (!string.IsNullOrEmpty(res))
-					commentBox.Text = "";
-			}
-			catch (MSharp.Core.RequestException ex)
-			{
-				MessageBox.Show(string.Format("リクエストに失敗しました。(詳細: {0})", ex.Message), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-			catch (MSharp.Core.ApiException ex)
-			{
-				MessageBox.Show(string.Format("Misskeyからエラーが返されました。(詳細: {0})", ex.Message), "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			}
-		}
+			await PostToMisskey();
+        }
 
 		private void settingToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			new SettingForm().ShowDialog();
+			var f = new SettingForm();
+			if (f.ShowDialog() == DialogResult.OK)
+			{
+				if (SettingStorage.Instance.IsAutoPost)
+				{
+					StartDelayTimer();
+				}
+				else
+				{
+					StopDelayTimer();
+				}
+			}
 		}
 
 		private async void selectPlayerToolStripMenuItem_Click(object sender, EventArgs e)

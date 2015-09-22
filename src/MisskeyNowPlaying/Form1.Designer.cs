@@ -156,7 +156,7 @@
 			this.menuStrip1.Location = new System.Drawing.Point(12, 36);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Padding = new System.Windows.Forms.Padding(0);
-			this.menuStrip1.Size = new System.Drawing.Size(50, 30);
+			this.menuStrip1.Size = new System.Drawing.Size(142, 30);
 			this.menuStrip1.TabIndex = 5;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
